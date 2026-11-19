@@ -3187,7 +3187,7 @@
       try { return await fetch(url, { ...opts, signal: c.signal }); } finally { clearTimeout(t); }
     }
     // Modern supported Gemini models
-    const CLOUD_MODELS = ['gemini-2.5-flash', 'gemini-2.0-flash', 'gemini-2.5-flash-lite', 'gemini-flash-latest', 'gemini-flash-lite-latest'];
+    const CLOUD_MODELS = ['gemini-1.5-flash', 'gemini-2.0-flash', 'gemini-1.5-flash-8b'];
 
     async function callCloudAI(system, contents, opts) {
       opts = opts || {};
@@ -3203,7 +3203,7 @@
             'x-karbaar-shop': 'karbaar-demo-shop-bd-01'
           },
           body: JSON.stringify(payload)
-        }, 20000);
+        }, 25000);
         let j = null;
         try { j = await r.json(); } catch (e) { j = null; }
         if (r.ok && j && j.text) return { text: j.text, truncated: j.finishReason === 'MAX_TOKENS', via: 'proxy', model: j.model };
