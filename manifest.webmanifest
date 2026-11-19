@@ -1,0 +1,27 @@
+{
+  "name": "KarBaar — ব্যবসার স্মার্ট সঙ্গী",
+  "short_name": "KarBaar",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#4f0f8a",
+  "lang": "bn",
+  "icons": [
+    {
+      "src": "assets/karbaar-icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/karbaar-icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/karbaar-icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

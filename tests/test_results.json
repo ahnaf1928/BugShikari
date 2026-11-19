@@ -1,0 +1,194 @@
+[
+  {
+    "id": "T01",
+    "name": "Cash sale updates inventory and revenue",
+    "status": "PASS",
+    "expected": "Stock 4 -> 2, Sales = 370, Profit = 30",
+    "actual": "Stock: 2, Sales: 370, Profit: 30",
+    "evidence": "Transaction logged: তীর সয়াবিন তেল বিক্রি, Qty: 2, id: tx_1795128680328_7ke8dk"
+  },
+  {
+    "id": "T02",
+    "name": "Purchase updates inventory and weighted-average cost",
+    "status": "PASS",
+    "expected": "Stock 7 -> 17, WAC updated to 140 BDT, Profit unchanged",
+    "actual": "Stock: 17, WAC: 140, Profit: 30",
+    "evidence": "Purchase recorded as asset restock. prevAvgCost: 130, newAvgCost: 140"
+  },
+  {
+    "id": "T03",
+    "name": "Credit sale updates inventory, revenue, and dues",
+    "status": "PASS",
+    "expected": "Stock 10 -> 8, Sales += 140, Rahim due = 140, Profit += 20",
+    "actual": "Stock: 8, Sales: 510, Rahim due: 140, Profit: 50",
+    "evidence": "Credit sale ledger entry created with isCredit: true, bakiId: b_1795128680334_321"
+  },
+  {
+    "id": "T04",
+    "name": "Partial credit payment reduces dues without increasing sales",
+    "status": "PASS",
+    "expected": "Rahim due 140 -> 40, Settled: false, Collected = 100, Sales strictly unchanged",
+    "actual": "Rahim due: 40, Settled: false, Collected: 100, Sales: 510 (Before: 510)",
+    "evidence": "Zero double-counting: Revenue recognized at credit sale, not collection"
+  },
+  {
+    "id": "T05",
+    "name": "Full payment settles dues",
+    "status": "PASS",
+    "expected": "Due 500 -> 0, Settled = true",
+    "actual": "Due: 0, Settled: true",
+    "evidence": "bakiList marked settled with timestamped payment log"
+  },
+  {
+    "id": "T06",
+    "name": "Discounted sale calculates correct profit",
+    "status": "PASS",
+    "expected": "Profit increase = 5 BDT (175 sold - 170 cost)",
+    "actual": "Profit increase: 5 BDT (Total profit: 55)",
+    "evidence": "Historical cost basis 170 BDT deducted from discounted revenue 175 BDT"
+  },
+  {
+    "id": "T07",
+    "name": "Unknown cost produces unknown profit",
+    "status": "PASS",
+    "expected": "tx.profitUnknown = true, tx.calculatedProfit = null, stats.profit unchanged (No fake 15%)",
+    "actual": "profitUnknown: true, calculatedProfit: null, Profit delta: 0",
+    "evidence": "System reports unknown profit as unavailable rather than fabricating a number"
+  },
+  {
+    "id": "T08",
+    "name": "Operating expenses separated from purchase costs",
+    "status": "PASS",
+    "expected": "Operating expenses reduce profit by 450, separated from purchase costs (1470)",
+    "actual": "Expenses: 450, Purchases: 1470, Profit: -395",
+    "evidence": "Cash reconciliation separates period operating expense from asset restock"
+  },
+  {
+    "id": "T09",
+    "name": "Cumulative batch stock shortage is rejected",
+    "status": "PASS",
+    "expected": "Batch rejected due to cumulative shortage. Stock unchanged at 1.",
+    "actual": "Validation ok: false, Error: \"তেল-এর পর্যাপ্ত স্টক নেই। ব্যাচের মোট চাহিদা ১ বোতল, কিন্তু অবশিষ্ট প্রজেক্টেড স্টক মাত্র ০ বোতল।\", Stock: 1",
+    "evidence": "validateBatchActions projected cumulative stock sequentially across batch"
+  },
+  {
+    "id": "T10",
+    "name": "Multi-action batch succeeds consistently",
+    "status": "PASS",
+    "expected": "Both actions committed atomically. Sugar stock 17 -> 15, Sales += 280",
+    "actual": "Saved: 2, Sugar stock: 15, Sales: 1465",
+    "evidence": "Batch pre-validation succeeded and both transactions committed consistently"
+  },
+  {
+    "id": "T11",
+    "name": "Mid-batch failure does not silently corrupt records",
+    "status": "PASS",
+    "expected": "Action 1 executed and rolled back after Action 2 mid-execution failure. State 100% restored (rolledBack: true).",
+    "actual": "res.ok: false, rolledBack: true, Sugar stock: 15 (Before: 15), Sales: 1465 (Before: 1465)",
+    "evidence": "Mid-batch runtime failure triggered compensating transaction rollback (Saga pattern); zero partial mutation remained."
+  },
+  {
+    "id": "T12",
+    "name": "Duplicate request is not applied twice",
+    "status": "PASS",
+    "expected": "1st call: ok true; 2nd call: in-memory latch blocked; 3rd call: persistent registry blocked duplicate. Sales delta +140 exactly.",
+    "actual": "1st: true, 2nd: already_executed, 3rd duplicate: true, Sales delta: 140",
+    "evidence": "Persistent idempotency store in localStorage blocks resubmissions across card instances and page refreshes"
+  },
+  {
+    "id": "T13",
+    "name": "Undo survives page refresh",
+    "status": "PASS",
+    "expected": "Undo succeeds post-refresh: Stock reverted to 14, Sales reverted to 1605",
+    "actual": "Undo ok: true, Stock: 14, Sales: 1605",
+    "evidence": "undoStack restored from LS.undo and transaction reverted successfully"
+  },
+  {
+    "id": "T14",
+    "name": "Merged customer credit undo preserves earlier balances",
+    "status": "PASS",
+    "expected": "Due merged to 3000, reverted to 2000. Customer record preserved.",
+    "actual": "Before undo: 3000, After undo: 2000, Customer exists: true",
+    "evidence": "baki_add undo decremented only the added amount without deleting merged record"
+  },
+  {
+    "id": "T15",
+    "name": "Payment reversal restores the correct balance",
+    "status": "PASS",
+    "expected": "Due 140 -> 40 on payment -> 140 on undo. Sales revenue constant throughout.",
+    "actual": "Due after pay: 40, Due after undo: 140, Sales: 1745 (Expected: 1745)",
+    "evidence": "baki_collect undo restored customer balance and decremented collectedBaki without touching sales"
+  },
+  {
+    "id": "T16",
+    "name": "Negative, zero, NaN, and infinite amounts are rejected",
+    "status": "PASS",
+    "expected": "All 6 invalid transactions rejected with ok: false.",
+    "actual": "tZero: false, tNeg: false, tNaN: false, tInf: false, tZeroQty: false, tNegQty: false",
+    "evidence": "commitTransaction strictly enforces positive finite numeric amounts and quantities"
+  },
+  {
+    "id": "T17",
+    "name": "Invalid unit conversion & unit mismatch rejected",
+    "status": "PASS",
+    "expected": "500g converts to 0.5kg; Rice/oil unit mismatches rejected with Bengali guidance; negative qty sanitized.",
+    "actual": "Conversion: true (qty: 0.5, amt: 70), Rice mismatch: true, Oil mismatch: true, Sanitize: true",
+    "evidence": "Unit engine performs gram-to-kg conversion and rejects physical unit incompatibilities with explicit Bengali guidance"
+  },
+  {
+    "id": "T18",
+    "name": "Missing or ambiguous customer triggers clarification",
+    "status": "PASS",
+    "expected": "Missing customer triggers clear Bengali clarification prompt.",
+    "actual": "Result: \"কার নামে বাকি লিখব? নামসহ আবার বলুন।\"",
+    "evidence": "resolveAction requires explicit customer name for all credit transactions"
+  },
+  {
+    "id": "T19",
+    "name": "Missing or ambiguous product triggers clarification",
+    "status": "PASS",
+    "expected": "Unrecognized product triggers product clarification prompt.",
+    "actual": "Result: \"কোন পণ্য বুঝতে পারিনি।\"",
+    "evidence": "resolveAction matches against catalog and refuses ambiguous items"
+  },
+  {
+    "id": "T20",
+    "name": "AI network failure handled transparently with local fallback",
+    "status": "PASS",
+    "expected": "Returns local answer gracefully with offline badge.",
+    "actual": "Source: \"Karbaar AI · হিসাব সহকারী (লোকাল ইঞ্জিন)\", Preview: \"রহমান ভাই, আমি স্টক, কেনার পরামর্শ, লাভ, বাকি আদায...\"",
+    "evidence": "localAnswer provides 100% offline uptime when cloud network is unreachable"
+  },
+  {
+    "id": "T21",
+    "name": "Local data persists after refresh",
+    "status": "PASS",
+    "expected": "All 6 storage partitions saved and 100% reconstructed without data loss.",
+    "actual": "Keys present: true, Sales: 1745, Tx: 12, Baki: 4, Undo: 12",
+    "evidence": "Keys in storage: karbaar_stats, karbaar_transactions, karbaar_baki, karbaar_inventory, karbaar_saleslog, karbaar_undo, karbaar_idempotency"
+  },
+  {
+    "id": "T22",
+    "name": "Cash reconciliation matches underlying transactions",
+    "status": "PASS",
+    "expected": "Drawer cash exactly equals totalCashIn (2065) - totalCashOut (1970) = 95",
+    "actual": "Drawer cash: 95, Expected: 95",
+    "evidence": "Cash-in (Sales + Collected) minus Cash-out (Purchases + Expenses) matches ledger"
+  },
+  {
+    "id": "T23",
+    "name": "Historical cost changes handled correctly",
+    "status": "PASS",
+    "expected": "WAC updated to 71.11, then reverted to 60 on undo. Stock 18 -> 8.",
+    "actual": "WAC after restock: 71.11, WAC after undo: 60, Stock after undo: 8",
+    "evidence": "commitTransaction tracked prevAvgCost and undoLastAction restored historical cost basis"
+  },
+  {
+    "id": "T24",
+    "name": "All business invariants remain valid after consecutive errors",
+    "status": "PASS",
+    "expected": "State completely unchanged after consecutive illegal actions.",
+    "actual": "Tx count: 12 (Before: 12), Sales: 1745 (Before: 1745)",
+    "evidence": "Zero ghost records or ledger corruption after error bursts"
+  }
+]
