@@ -80,7 +80,7 @@ Bangladesh has approximately **7.8 million Cottage, Micro, Small, and Medium Ent
 
 ## 5. Scope & Success Metrics (Hackathon Evaluation Criteria)
 
-- **MVP Scope:** Full Voice-to-Sale flow, Digital Baki ledger with WhatsApp reminder, DemandIQ stock forecast, 11/11 verified financial audit tests, and responsive dark/light UI.
+- **MVP Scope:** Full Voice-to-Sale flow, Digital Baki ledger with WhatsApp reminder, DemandIQ stock forecast, 24/24 verified financial audit tests, and responsive dark/light UI.
 - **Success Criteria:**
   - Zero hallucination on financial numbers (100% test pass rate).
   - Client API key exposure: **0%**.

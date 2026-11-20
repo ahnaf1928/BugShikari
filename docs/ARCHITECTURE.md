@@ -40,7 +40,7 @@ KarBaar is architected as an **Offline-First Progressive Web Application (PWA) w
 │  │ - In-Memory Sliding Window Rate Limiter (20 req/min/IP) [HTTP 429]       │  │
 │  │ - Hard Payload Size Guard (50,000 bytes max) [HTTP 413]                  │  │
 │  │ - Environment Security Injection: `process.env.GEMINI_API_KEY`          │  │
-│  │ - Fallback Model Orchestrator: Gemini 2.5 Flash ──► Gemini 2.0 Flash     │  │
+│  │ - Fallback Model Orchestrator: Gemini 3.5 Flash Lite ──► Gemini 3.5 Flash Lite     │  │
 │  └───────────────────────────────────┬──────────────────────────────────────┘  │
 └──────────────────────────────────────┼─────────────────────────────────────────┘
                                        │ HTTPS TLS 1.3 REST Request
@@ -65,7 +65,7 @@ KarBaar is architected as an **Offline-First Progressive Web Application (PWA) w
 ### 2.2 Speech & Semantic Parsing Pipeline
 1. **Audio Capture:** Browser-native `webkitSpeechRecognition` configured for Bengali (`language = "bn-BD"`).
 2. **Hybrid Parser:**
-   - **Primary:** Cloud-accelerated Gemini 2.5 Flash via Serverless Proxy for complex natural language, colloquial slang, and multi-intent queries.
+   - **Primary:** Cloud-accelerated Gemini 3.5 Flash Lite via Serverless Proxy for complex natural language, colloquial slang, and multi-intent queries.
    - **Edge Fallback:** Deterministic regex-based phonetic tokenizer (`parseActionsLocal`) detecting key retail keywords (`তেল`, `চাল`, `বাকি`, `টাকা`, `খরচ`) with zero network dependency.
 
 ### 2.3 Deterministic Ledger & Double-Entry Math

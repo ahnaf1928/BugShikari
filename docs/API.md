@@ -73,7 +73,7 @@ Accept: application/json
       "amount": 50
     }
   ],
-  "modelUsed": "gemini-2.5-flash",
+  "modelUsed": "gemini-3.5-flash-lite",
   "timestamp": "2026-11-20T03:45:00.000Z"
 }
 ```
@@ -94,8 +94,8 @@ Accept: application/json
 
 ### 2.1 Google Gemini AI Cluster Integration
 - **Upstream Host:** `https://generativelanguage.googleapis.com/v1beta/models/`
-- **Primary Model:** `gemini-2.5-flash`
-- **Failover Model:** `gemini-2.0-flash`
+- **Primary Model:** `gemini-3.5-flash-lite`
+- **Failover Model:** `gemini-3.5-flash-lite`
 - **Parameters:**
   - `temperature`: `0.2` (Strict determinism for entity extraction)
   - `topP`: `0.95`

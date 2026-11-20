@@ -31,5 +31,5 @@
 ---
 
 ## 4. Test Discipline & Verification
-* **Pre-Commit Verification:** Run `node -c` on all function files and execute the 11/11 financial audit suite before deploying to Netlify or pushing to GitHub.
+* **Pre-Commit Verification:** Run `node -c` on all function files and execute the 24/24 financial audit suite before deploying to Netlify or pushing to GitHub.
 * **Zero Syntax Errors:** Ensure all JSON files, redirects, and manifest files parse with exit code 0.

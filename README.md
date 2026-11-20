@@ -1,9 +1,10 @@
 # 🛒 Karbaar AI (কারবার) — Bengali AI Business Operator & Digital Ledger
 
 [![Netlify Live](https://img.shields.io/badge/Live-karbaar.netlify.app-00C7B7?style=for-the-badge&logo=netlify)](https://karbaar.netlify.app)
-[![AI Engine](https://img.shields.io/badge/AI-Google_Gemini_2.5_Flash-4285F4?style=for-the-badge&logo=google)](https://ai.google.dev/)
+[![AI Engine](https://img.shields.io/badge/AI-Google_Gemini_3.5_Flash_Lite-4285F4?style=for-the-badge&logo=google)](https://ai.google.dev/)
 [![Stack](https://img.shields.io/badge/Architecture-PWA_SPA_Serverless-7c3aed?style=for-the-badge)](#)
-[![Tests](https://img.shields.io/badge/Financial_Integrity_Tests-11%2F11_PASS-success?style=for-the-badge)](#)
+[![Tests](https://img.shields.io/badge/Financial_Integrity_Tests-24%2F24_PASS-success?style=for-the-badge)](#)
+[![License](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)](#)
 
 > **"কারবার শুধু একটি দোকান ম্যানেজমেন্ট ড্যাশবোর্ড নয়; এটি বাংলাদেশের ক্ষুদ্র ও মাঝারি ব্যবসায়ীদের জন্য একটি ভয়েস-ফার্স্ট বাংলা AI বিজনেস অপারেটর — যা মুখের স্বাভাবিক কথাকে নির্ভুল ব্যবসায়িক লেনদেনে রূপান্তর করে।"**
 
@@ -24,7 +25,7 @@
 | **API** | [`docs/API.md`](docs/API.md) | জেমিনি ২.৫ ফ্ল্যাশ সার্ভারলেস এন্ডপয়েন্ট ও হোয়াটসঅ্যাপ নোটিফিকেশন স্পেক্স |
 | **DESIGN** | [`docs/DESIGN.md`](docs/DESIGN.md) | ডার্ক-ফার্স্ট ড্রিবল ডিজাইন সিস্টেম, কালার টোকেন, টাইপোগ্রাফি ও ইউএক্স কম্পোনেন্টস |
 | **AGENTS** | [`docs/AGENTS.md`](docs/AGENTS.md) | অটোনোমাস কোডিং এজেন্ট রুলস, কোড কোয়ালিটি ও ফিনান্সিয়াল অডিট গাইডলাইন্স |
-| **AUDIT** | [`docs/AUDIT.md`](docs/AUDIT.md) | ১১/১১ ফিনান্সিয়াল ইনটেগ্রিটি টেস্ট ম্যাট্রিক্স ও অটোমেটেড টেস্ট রিপোর্ট |
+| **AUDIT** | [`docs/AUDIT.md`](docs/AUDIT.md) | ২৪/২৪ ফিনান্সিয়াল ইনটেগ্রিটি টেস্ট ম্যাট্রিক্স ও অটোমেটেড টেস্ট রিপোর্ট |
 
 ## 🌟 কেন কারবার (KarBaar) অন্যান্যদের চেয়ে আলাদা?
 
@@ -54,7 +55,7 @@
    ┌─────────────────────────────────────────────────────────────┐
    │             Netlify Serverless Security Proxy               │
    │  - Node.js Runtime                                          │
-   │  - Google Gemini 2.5 Flash / 2.0 Flash REST Integration     │
+   │  - Google Gemini 3.5 Flash Lite / 2.0 Flash REST Integration     │
    │  - Rate Limit: 20 req/min/IP (HTTP 429 Retry-After: 60)    │
    │  - Payload Guard: Max 50,000 bytes (HTTP 413)               │
    │  - Server-Side GEMINI_API_KEY (Never exposed to browser)    │
@@ -63,25 +64,36 @@
 
 ---
 
-## 🧪 আর্থিক নির্ভুলতা ও টেস্ট স্যুট (Financial Integrity Audit)
+## 🧪 আর্থিক নির্ভুলতা ও সম্পূর্ণ টেস্ট স্যুট (Financial Integrity Audit — 24/24 PASS)
 
-আমরা কোডের প্রতিটি লেনদেন ও গণনাকে ১১টি কঠোর টেস্ট কেসের মাধ্যমে নোড-ভিত্তিক টেস্ট হার্নেসে শতভাগ যাচাই করেছি:
+আমরা কোডের প্রতিটি লেনদেন, ক্যাশ রিকনসিলিয়েশন, ডাবল-কাউন্টিং রোধ, ইনভেন্টরি কস্ট বেসিস এবং ডায়নামিক রোলব্যাক ২৪টি কঠোর স্বয়ংক্রিয় টেস্ট কেসের মাধ্যমে নোড-ভিত্তিক টেস্ট হার্নেসে শতভাগ যাচাই করেছি:
 
-| ID | টেস্ট কেস | প্রত্যাশিত ফলাফল | বাস্তব ফলাফল | স্ট্যাটাস | প্রমাণ |
-|---|---|---|---|:---:|---|
-| **T01** | নগদ বিক্রি ও স্টক হ্রাস | স্টক ৪ $\rightarrow$ ২, বিক্রি = ৩৭০৳, লাভ = ৩০৳ | স্টক: ২, বিক্রি: ৩৭০৳, লাভ: ৩০৳ | **PASS** | তীর সয়াবিন তেল বিক্রি, Qty: ২ |
-| **T02** | বাকি বিক্রি ও লেজার এন্ট্রি | স্টক ১২ $\rightarrow$ ১০, বাকি = ৭৩০০৳, ক্রেতার বাকি = ৭৩০০৳ | স্টক: ১০, মোট বাকি: ৭৩০০৳, কাউসার ভাই: ৭৩০০৳ | **PASS** | BakiList ও Transaction আপডেট |
-| **T03** | আংশিক বাকি আদায় (জিরো ডাবল-কাউন্টিং) | অবশিষ্ট বাকি = ৪৩০০৳, সংগৃহীত = ৩০০০৳, মোট বিক্রি অপরিবর্তিত | বাকি: ৪৩০০৳, সংগৃহীত: ৩০০০৳, বিক্রি অপরিবর্তিত | **PASS** | রাজস্ব ডাবল কাউন্ট হয়নি |
-| **T04** | মালামাল ক্রয় ও রিস্টক | স্টক ৭ $\rightarrow$ ১৭, লাভ অপরিবর্তিত (মূলধনী সম্পদ) | স্টক: ১৭, লাভ: ৫৩০৳ (অপরিবর্তিত) | **PASS** | চিনি ক্রয় (আড়ত), Cat: পণ্য ক্রয় |
-| **T05** | খরচ ও ক্যাশ রিকনসিলিয়েশন | ড্রয়ার ক্যাশ = ১৬২০৳ (ইন ৩৩৭০৳ - আউট ১৭৫০৳), লাভ কমেছে ৪৫০৳ | ক্যাশ ইন: ৩৩৭০৳, আউট: ১৭৫০৳, ড্রয়ার: ১৬২০৳, লাভ: ৮০৳ | **PASS** | নগদ ক্যাশবাক্সের হিসাব নির্ভুল |
-| **T06** | ডিসকাউন্ট বিক্রি ও প্রকৃত লাভ | প্রকৃত লাভে যোগ = ৫৳ (১৭৫৳ বিক্রি - ১৭০৳ কেনা) | লাভে যোগ: ৫৳ (মোট লাভ: ৮৫৳) | **PASS** | হিস্টোরিক্যাল ক্রয়মূল্য ভিত্তিক লাভ |
-| **T07** | মাল্টি-অ্যাকশন ভয়েস পার্সিং | ১টি বাক্যে ২টি লেনদেন পৃথকভাবে সনাক্ত | ২ অ্যাকশন সনাক্ত (বিক্রি ২ ও খরচ ৫০) | **PASS** | Regex & Fallback Semantic Tokenizer |
-| **T08** | ডুপ্লিকেট সাবমিশন রোধ | দ্রুত একাধিক ক্লিকে শুধুমাত্র ১ বার লেনদেন কার্যকর হবে | ১ম ক্লিকে True, ২য়/৩য় ক্লিকে False | **PASS** | Boolean Latch Guard |
-| **T09** | একক লেনদেন বাতিল (Undo) | স্টক, বিক্রি ও লাভ পূর্বাবস্থায় ফেরত | স্টক: ১, বিক্রি: ৭৮৪৫৳, লাভ: ৮৫৳ | **PASS** | অ্যাকশন আনডু ও স্টক রিকভারি সফল |
-| **T10** | অনুক্রমিক ট্রানজ্যাকশন আনডু | ৩টি লেনদেন ক্রমানুসারে (LIFO) সফলভাবে রোলব্যাক | ট্রানজ্যাকশন সংখ্যা পুনরায় পূর্বাবস্থায় (৬) | **PASS** | LIFO স্ট্যাক নিরাপত্তা নিশ্চিত |
-| **T11** | রিফ্রেশ ও ডেটা স্থায়িত্ব | ব্রাউজার রিফ্রেশেও সম্পূর্ণ ডেটা অবিকৃত থাকবে | রিফ্রেশ পরবর্তী মোট বিক্রি, লেজার ও ইনভেন্টরি ১০০% অবিকল | **PASS** | LocalStorage ডুয়াল সিঙ্ক |
-
----
+| ID | টেস্ট কেস (Test Scenario) | প্রত্যাশিত আচরণ (Expected) | ফলাফল (Actual) | স্ট্যাটাস |
+|---|---|---|---|:---:|
+| **T01** | Cash sale updates inventory and revenue | Stock 4 -> 2, Sales = 370, Profit = 30 | Stock: 2, Sales: 370, Profit: 30 | **PASS** |
+| **T02** | Purchase updates inventory and weighted-average cost | Stock 7 -> 17, WAC updated to 140 BDT, Profit unchanged | Stock: 17, WAC: 140, Profit: 30 | **PASS** |
+| **T03** | Credit sale updates inventory, revenue, and dues | Stock 10 -> 8, Sales += 140, Rahim due = 140, Profit += 20 | Stock: 8, Sales: 510, Rahim due: 140, Profit: 50 | **PASS** |
+| **T04** | Partial credit payment reduces dues without increasing sales | Rahim due 140 -> 40, Settled: false, Collected = 100, Sales strictly unchanged | Rahim due: 40, Settled: false, Collected: 100, Sales: 510 (Before: 510) | **PASS** |
+| **T05** | Full payment settles dues | Due 500 -> 0, Settled = true | Due: 0, Settled: true | **PASS** |
+| **T06** | Discounted sale calculates correct profit | Profit increase = 5 BDT (175 sold - 170 cost) | Profit increase: 5 BDT (Total profit: 55) | **PASS** |
+| **T07** | Unknown cost produces unknown profit | tx.profitUnknown = true, tx.calculatedProfit = null, stats.profit unchanged (No fake 15%) | profitUnknown: true, calculatedProfit: null, Profit delta: 0 | **PASS** |
+| **T08** | Operating expenses separated from purchase costs | Operating expenses reduce profit by 450, separated from purchase costs (1470) | Expenses: 450, Purchases: 1470, Profit: -395 | **PASS** |
+| **T09** | Cumulative batch stock shortage is rejected | Batch rejected due to cumulative shortage. Stock unchanged at 1. | Validation ok: false, Error: "তেল-এর পর্যাপ্ত স্টক নেই। ব্যাচের মোট চাহিদা ১ বোতল, কিন্তু অবশিষ্ট প্রজেক্টেড স্টক মাত্র ০ বোতল।", Stock: 1 | **PASS** |
+| **T10** | Multi-action batch succeeds consistently | Both actions committed atomically. Sugar stock 17 -> 15, Sales += 280 | Saved: 2, Sugar stock: 15, Sales: 1465 | **PASS** |
+| **T11** | Mid-batch failure does not silently corrupt records | Action 1 executed and rolled back after Action 2 mid-execution failure. State 100% restored (rolledBack: true). | res.ok: false, rolledBack: true, Sugar stock: 15 (Before: 15), Sales: 1465 (Before: 1465) | **PASS** |
+| **T12** | Duplicate request is not applied twice | 1st call: ok true; 2nd call: in-memory latch blocked; 3rd call: persistent registry blocked duplicate. Sales delta +140 exactly. | 1st: true, 2nd: already_executed, 3rd duplicate: true, Sales delta: 140 | **PASS** |
+| **T13** | Undo survives page refresh | Undo succeeds post-refresh: Stock reverted to 14, Sales reverted to 1605 | Undo ok: true, Stock: 14, Sales: 1605 | **PASS** |
+| **T14** | Merged customer credit undo preserves earlier balances | Due merged to 3000, reverted to 2000. Customer record preserved. | Before undo: 3000, After undo: 2000, Customer exists: true | **PASS** |
+| **T15** | Payment reversal restores the correct balance | Due 140 -> 40 on payment -> 140 on undo. Sales revenue constant throughout. | Due after pay: 40, Due after undo: 140, Sales: 1745 (Expected: 1745) | **PASS** |
+| **T16** | Negative, zero, NaN, and infinite amounts are rejected | All 6 invalid transactions rejected with ok: false. | tZero: false, tNeg: false, tNaN: false, tInf: false, tZeroQty: false, tNegQty: false | **PASS** |
+| **T17** | Invalid unit conversion & unit mismatch rejected | 500g converts to 0.5kg; Rice/oil unit mismatches rejected with Bengali guidance; negative qty sanitized. | Conversion: true (qty: 0.5, amt: 70), Rice mismatch: true, Oil mismatch: true, Sanitize: true | **PASS** |
+| **T18** | Missing or ambiguous customer triggers clarification | Missing customer triggers clear Bengali clarification prompt. | Result: "কার নামে বাকি লিখব? নামসহ আবার বলুন।" | **PASS** |
+| **T19** | Missing or ambiguous product triggers clarification | Unrecognized product triggers product clarification prompt. | Result: "কোন পণ্য বুঝতে পারিনি।" | **PASS** |
+| **T20** | AI network failure handled transparently with local fallback | Returns local answer gracefully with offline badge. | Source: "Karbaar AI · হিসাব সহকারী (লোকাল ইঞ্জিন)", Preview: "রহমান ভাই, আমি স্টক, কেনার পরামর্শ, লাভ, বাকি আদায..." | **PASS** |
+| **T21** | Local data persists after refresh | All 6 storage partitions saved and 100% reconstructed without data loss. | Keys present: true, Sales: 1745, Tx: 12, Baki: 4, Undo: 12 | **PASS** |
+| **T22** | Cash reconciliation matches underlying transactions | Drawer cash exactly equals totalCashIn (2065) - totalCashOut (1970) = 95 | Drawer cash: 95, Expected: 95 | **PASS** |
+| **T23** | Historical cost changes handled correctly | WAC updated to 71.11, then reverted to 60 on undo. Stock 18 -> 8. | WAC after restock: 71.11, WAC after undo: 60, Stock after undo: 8 | **PASS** |
+| **T24** | All business invariants remain valid after consecutive errors | State completely unchanged after consecutive illegal actions. | Tx count: 12 (Before: 12), Sales: 1745 (Before: 1745) | **PASS** |
 
 ## 🚀 ডিপ্লয়মেন্ট গাইড (Deployment Guide)
 

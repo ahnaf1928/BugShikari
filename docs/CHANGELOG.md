@@ -37,7 +37,7 @@ All notable changes and architectural improvements implemented during this final
 #### 🤖 AI & Serverless Security
 - **Zero Client Key Leakage:** Completely eliminated browser API key input UI and client storage.
 - **Serverless Hardening:**
-  - Integrated Google Gemini 2.5 Flash & 2.0 Flash REST endpoints.
+  - Integrated Google Gemini 3.5 Flash Lite & 2.0 Flash REST endpoints.
   - Rate limiting enforced at 20 req/min per IP with `Retry-After: 60` HTTP headers.
   - Maximum payload size guard set to 50,000 bytes (HTTP 413).
   - Client sends `x-karbaar-shop: karbaar-demo-shop-bd-01` header verified by backend.
