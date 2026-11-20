@@ -4,12 +4,12 @@
 //   GEMINI_API_KEY   (Required in Netlify Site Configuration)
 //   GEMINI_MODELS    (Optional comma-separated list of models)
 
-// Battle-tested, rock-solid Gemini models in priority order:
-// gemini-1.5-flash responds in ~1.2s with zero thinking overhead and high rate limits.
+// Modern active 2026 Gemini models:
+// gemini-3.5-flash-lite delivers sub-5s response in Bengali with zero quota latency
 const DEFAULT_MODELS = [
-  'gemini-1.5-flash',
-  'gemini-2.0-flash',
-  'gemini-1.5-flash-8b',
+  'gemini-3.5-flash-lite',
+  'gemini-3.5-flash',
+  'gemini-3.8-flash',
   'gemini-flash-latest'
 ];
 
@@ -17,15 +17,15 @@ const API_BASE = 'https://generativelanguage.googleapis.com/v1beta/models';
 const MAX_CONTENTS = 12;
 const MAX_TEXT = 3000;
 const MAX_SYSTEM = 9000;
-const BUDGET_MS = 24000; // 24 seconds total execution budget (Netlify Lambda allows up to 26s)
+const BUDGET_MS = 24000; // 24 seconds total execution budget (Netlify Lambda timeout configured to 26s)
 const MAX_PAYLOAD_BYTES = 50000;
 
-// Rate limiter per IP (25 requests per minute)
+// Rate limiter per IP (30 requests per minute)
 const hits = new Map();
 function isRateLimited(ip) {
   const now = Date.now();
   const win = 60000;
-  const max = 25;
+  const max = 30;
   const arr = (hits.get(ip) || []).filter(t => now - t < win);
   arr.push(now);
   hits.set(ip, arr);
@@ -100,7 +100,8 @@ exports.handler = async (event) => {
     return jsonResponse(200, {
       ok: true,
       configured: Boolean(key),
-      keyLength: key ? key.length : 0
+      keyLength: key ? key.length : 0,
+      activeModel: 'gemini-3.5-flash-lite'
     }, { 'Access-Control-Allow-Origin': allowedOrigin });
   }
 
@@ -204,7 +205,6 @@ exports.handler = async (event) => {
 
         attempts.push({ model, status: response.status, durationMs, error: lastError });
 
-        // If API key is fundamentally bad (400 bad key, 403 forbidden), stop immediately
         if (response.status === 400 && /API_KEY|key not valid|credential/i.test(lastError)) {
           break;
         }
