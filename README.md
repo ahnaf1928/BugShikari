@@ -44,13 +44,17 @@
 ## 👥 টিম মেম্বার্স (Team Members)
 
 1. **Mohammad Ahnaf Habib**
-2. **Nishika Sharif**
+2. **Sajib Dutta**
+3. **Shahriar Pias**
+4. **Golam Sadat Raihan**
+5. **Onirban Deb**
+6. **Nishika Sharif**
 
 ---
 
 ## 📚 টেকনিক্যাল ডকুমেন্টেশন (Technical Documentation)
 
-প্রজেক্টের আর্কিটেকচার, এপিআই এবং টেস্ট স্যুট বিশদভাবে দেখতে নিচের স্পেসিফিকেশনগুলো পর্যালোচনা করতে পারেন:
+প্রজেক্টের আর্কিটেকচার, এপিআই এবং টেস্ট স্যুট বিশদভাবে পর্যালোচনা করতে:
 
 * 📄 [**Product Requirements Document (PRD)**](docs/PRD.md) — বিস্তারিত ইউজার জার্নি, প্রবলেম স্টেটমেন্ট ও এমভিপি স্কোপ।
 * 🏗️ [**System Architecture**](docs/ARCHITECTURE.md) — সার্ভারলেস সিকিউরিটি মডেল, ডাটা ফ্লো ও জিরো-কী-লিকেজ ফ্রেমওয়ার্ক।
@@ -58,23 +62,6 @@
 * 🔌 [**API Specification**](docs/API.md) — Gemini 3.5 Flash Lite সার্ভারলেস এন্ডপয়েন্ট ও প্যারামিটার স্পেক্স।
 * 🎨 [**Design System**](docs/DESIGN.md) — ডার্ক-ফার্স্ট ড্রিবল ডিজাইন সিস্টেম ও ইউআই টোকেন।
 * 🧪 [**Financial Audit Matrix**](docs/AUDIT.md) — ২৪/২৪ ফিনান্সিয়াল ইনটেগ্রিটি টেস্ট কেস রিপোর্ট।
-
----
-
-## 🚀 লোকাল সেটআপ ও রান (Getting Started)
-
-কোনো ভারী ইনস্টলেশন বা জটিল ডিপেন্ডেন্সি ছাড়াই প্রজেক্টটি চালানো যায়:
-
-```bash
-# ১. রিপোজিটরি ক্লোন করুন
-git clone https://github.com/ahnaf1928/BugShikari.git
-
-# ২. ডিরেক্টরিতে প্রবেশ করুন
-cd BugShikari
-
-# ৩. যেকোনো লোকাল সার্ভার দিয়ে ওপেন করুন (বা সরাসরি ব্রাউজারে index.html ওপেন করুন)
-# অথবা লাইভ অ্যাপ ব্যবহার করুন: https://karbaar.netlify.app
-```
 
 ---
 *Developed with precision for Bangladesh CMSME Retail by Team BugShikari.*
